@@ -34,7 +34,7 @@ def file_search():
             #read the data
             data_file=json.load(datafile)
     except FileNotFoundError:
-        messagebox.showinfo(title=f"{web_name}", message="No Data File found")
+        messagebox.showinfo(title=f"Error", message="No Data File found")
     else:
         if web_name in data_file:
             email=data_file[web_name]["Email"]
@@ -44,10 +44,6 @@ def file_search():
             pyperclip.copy(password)
         else:
             messagebox.showinfo(title=f"{web_name}",message="No Details for the website exists")
-
-
-
-
 
 
 
@@ -63,24 +59,25 @@ def save():
     }}
     if len(web_name)==0 or len(password_name)==0:
         print(messagebox.showinfo(title="Oops!",message="please dont leave any fields empty"))
-    try:
-        with open(file="data.json",mode="r") as datafile:
-            #read the data
-            data=json.load(datafile)
-    except FileNotFoundError:
-        with open(file="data.json",mode="w") as datafile:
-            #writes the new data into the file
-            json.dump(new_data,datafile,indent=4)
     else:
-            # update the data with new data
-        data.update(new_data)
-        with open(file="data.json",mode="w") as datafile:
+        try:
+            with open(file="data.json",mode="r") as datafile:
+                #read the data
+                data=json.load(datafile)
+        except FileNotFoundError:
+            with open(file="data.json",mode="w") as datafile:
                 #writes the new data into the file
-            json.dump(data,datafile,indent=4)
-            #f.write("\n"+web_name+"|"+email_name+"|"+password_name)
-    finally:
-        web_textbox.delete(0, END)
-        pass_gen_textbox.delete(0, END)
+                json.dump(new_data,datafile,indent=4)
+        else:
+                # update the data with new data
+            data.update(new_data)
+            with open(file="data.json",mode="w") as datafile:
+                    #writes the new data into the file
+                json.dump(data,datafile,indent=4)
+                #f.write("\n"+web_name+"|"+email_name+"|"+password_name)
+        finally:
+            web_textbox.delete(0, END)
+            pass_gen_textbox.delete(0, END)
 
 
 # ---------------------------- UI SETUP ------------------------------- #
