@@ -129,12 +129,5 @@ pass_gen_textbox=Entry(width=30)
 pass_gen_textbox.grid(column=1,row=3)
 
 
-
-
-
-
-
-
-
 window.mainloop()
 
